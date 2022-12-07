@@ -14,7 +14,7 @@ userRoute.post("/register", async(req, res)=>{
     //if there is error in validation then error will send to frontend app
     if(error) return res.status(400).send(error.details[0].message)
     //If not error then "given user" will find in database . 
-    const findUser= await User.findOne({email:email});
+    const findUser= await User.findOne({email:req.body.email})
     if(findUser) return res.status(400).send("Email already register")
     //If user find in data base then message will send
     //After that password will be hash and then user will save in database
@@ -26,7 +26,7 @@ userRoute.post("/register", async(req, res)=>{
         email,
         phone,
         password:hash
-    })
+    });
 
     try{
         const savedUser = await user.save();
