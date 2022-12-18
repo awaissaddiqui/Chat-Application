@@ -43,17 +43,26 @@ userRoute.post("/register", async(req, res)=>{
 
     
 })
-userRoute.put("/inbox",verifyToken, async(req, res)=>{
+userRoute.post("/inbox",verifyToken, async(req, res)=>{
     const {name , message}=req.body;
     const newMsg= new Inbox({
         name,
-        message
+        message,
     })
-    const saveMessage = await newMsg.save();
-    res.status(200).send("🚀");
-})
-userRoute.delete("/", (req, res)=>{
+    try{
 
+        const saveMessage = await newMsg.save();
+        res.status(200).send(name +"\n"+message);
+    }catch(err){
+
+        if(err) return res.status(400).send(err)
+    }
+})
+userRoute.delete("/inbox/:id", verifyToken,async(req, res)=>{
+        const id= req.params.id;
+        const deleteMsg= await Inbox.findByIdAndDelete(id);
+        // if(!deleteMsg) return res.status(400).send("Messge deleted failed! Please Try again")
+        res.send(deleteMsg);
 })
 //Login 
 userRoute.get("/login",verifyToken,(req,res)=>{
@@ -65,7 +74,7 @@ userRoute.post("/login",async(req,res)=>{
     if(error) return res.status(400).send(error.details[0].message)
 
     const findUser = await User.findOne({email:req.body.email})
-    if(!findUser) return res.status(403).send("You don't have an account!\n Please Login First"); 
+    if(!findUser) return res.status(400).send("You don't have an account!\n Please Login First"); 
 
     const compare = await bcryptjs.compare(password, findUser.password);
     if(!compare) return res.status(400).send("Username or password are incorrect");

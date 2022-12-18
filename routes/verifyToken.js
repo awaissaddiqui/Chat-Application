@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken")
 function verifyToken(req,res,next){
     const token = req.header("token");
 
-    if(!token) return res.status(400).send("Token not found")
+    if(!token) return res.status(403).send("Token not found")
 
 try{
     const verified = jwt.verify(token,process.env.SECRETKEY)
