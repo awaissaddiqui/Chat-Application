@@ -24,4 +24,22 @@ function userValidation(data){
     const valid = schema.validate(data)
     return valid;
 }
+// Login validation
+
+function loginValidation(data){
+    const schema = Joi.object({
+        email:Joi
+            .string()
+            .email()
+            .required(),
+        password:Joi
+            .string()
+            .required()
+            .min(3)
+            .max(15)
+    })
+    const valid = schema.validate(data)
+    return valid;
+}
 module.exports= userValidation;
+module.exports=loginValidation;

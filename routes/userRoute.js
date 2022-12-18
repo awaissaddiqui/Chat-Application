@@ -2,11 +2,15 @@ const userRoute = require("express").Router();
 const bcryptjs= require("bcryptjs");
 const User = require("../models/User");
 const userValidation = require("./validation");
+const loginValidation=require("./validation")
+const jwt = require("jsonwebtoken");
+const verifyToken = require("./verifyToken");
+const Inbox = require("../models/Message")
 
 userRoute.get("/register", (req, res)=>{
     res.send("we are at user route ");
-    //const data = req.body; 
-   // console.log(data);
+    const data = req.body; 
+   console.log(data);
 })
 userRoute.post("/register", async(req, res)=>{
     const {name, email, phone, password}= req.body;
@@ -39,11 +43,37 @@ userRoute.post("/register", async(req, res)=>{
 
     
 })
-userRoute.put("/", (req, res)=>{
-
+userRoute.put("/inbox",verifyToken, async(req, res)=>{
+    const {name , message}=req.body;
+    const newMsg= new Inbox({
+        name,
+        message
+    })
+    const saveMessage = await newMsg.save();
+    res.status(200).send("🚀");
 })
 userRoute.delete("/", (req, res)=>{
 
 })
+//Login 
+userRoute.get("/login",verifyToken,(req,res)=>{
+        res.send("We are at GET Route ")
+})
+userRoute.post("/login",async(req,res)=>{
+    const {email, password}=req.body;
+    const {error}=loginValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message)
 
+    const findUser = await User.findOne({email:req.body.email})
+    if(!findUser) return res.status(403).send("You don't have an account!\n Please Login First"); 
+
+    const compare = await bcryptjs.compare(password, findUser.password);
+    if(!compare) return res.status(400).send("Username or password are incorrect");
+
+    const token = jwt.sign({email:findUser.email}, process.env.SECRETKEY);
+    res.status(200).header("token", token);
+
+    res.status(200).send("Logged In successfully")
+    
+})
 module.exports = userRoute
