@@ -7,10 +7,8 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("./verifyToken");
 const Inbox = require("../models/Message")
 
-userRoute.get("/register", (req, res)=>{
-    res.send("we are at user route ");
-    const data = req.body; 
-   console.log(data);
+userRoute.get("/",verifyToken, (req, res)=>{
+    
 })
 userRoute.post("/register", async(req, res)=>{
     const {name, email, phone, password}= req.body;
@@ -48,11 +46,12 @@ userRoute.post("/inbox",verifyToken, async(req, res)=>{
     const newMsg= new Inbox({
         name,
         message,
+ 
     })
     try{
 
         const saveMessage = await newMsg.save();
-        res.status(200).send(name +"\n"+message);
+        res.status(200).send(saveMessage);
     }catch(err){
 
         if(err) return res.status(400).send(err)
