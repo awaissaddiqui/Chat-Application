@@ -42,11 +42,11 @@ userRoute.post("/register", async(req, res)=>{
     
 })
 userRoute.post("/inbox",verifyToken, async(req, res)=>{
-    const {name , message}=req.body;
+    const {name , message,phoneNo}=req.body;
     const newMsg= new Inbox({
         name,
         message,
- 
+        phoneNo
     })
     try{
 

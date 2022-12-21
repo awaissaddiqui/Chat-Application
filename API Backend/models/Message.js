@@ -10,6 +10,9 @@ const newSchema = new mongoose.Schema({
         type:String,
         min:2,
         max:200
+    },
+    phoneNo:{
+        type:String
     }
 })
 module.exports=mongoose.model("Inbox",newSchema)
