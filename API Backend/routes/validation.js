@@ -41,5 +41,23 @@ function loginValidation(data){
     const valid = schema.validate(data)
     return valid;
 }
+function inboxValidation(data){
+    const schema = Joi.object({
+        name:Joi
+            .string()
+            .required(),
+        message:Joi
+            .string()
+            .required(),
+        phone: Joi
+            .number()
+            .required()
+            .min(11)
+            .max(12)
+    })
+    const valid = schema.validate(data)
+    return valid
+}
 module.exports= userValidation;
 module.exports=loginValidation;
+module.exports= inboxValidation;

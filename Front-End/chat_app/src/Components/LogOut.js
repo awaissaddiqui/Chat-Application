@@ -2,7 +2,7 @@ import React from 'react'
 
 const LogOut = () => {
   return (
-    <div>LogOut</div>
+    <div  style={{"marginLeft":"300px", "textAlign":"center"}}>LogOut</div>
   )
 }
 

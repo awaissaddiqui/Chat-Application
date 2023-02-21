@@ -2,7 +2,12 @@ import React from 'react'
 
 const Inbox = () => {
   return (
-    <div>Inbox</div>
+    <div>
+      <h1 style={{"marginLeft":"300px", "textAlign":"center"}}>
+
+      Inbox
+      </h1>
+      </div>
   )
 }
 
