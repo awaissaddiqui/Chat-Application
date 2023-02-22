@@ -8,9 +8,14 @@ const Login = ()=>{
   const SignIn=(e)=>{
     e.preventDefault();
     // axios call
-    axios.post(`https://localhost:3000/api/user/login`,{
+    axios.post("http://localhost:3001/user/login",{
       email:email,
       password:password
+    }).then(res=>{
+
+      console.log(res.response.data)
+    }).catch(err=>{
+      console.log(err.response.data);
     })
   }
   return (
