@@ -13,7 +13,7 @@ const Login = ()=>{
       password:password
     }).then(res=>{
 
-      console.log(res.response.data)
+      console.log(res.data)
     }).catch(err=>{
       console.log(err.response.data);
     })

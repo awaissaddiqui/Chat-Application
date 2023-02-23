@@ -13,8 +13,9 @@ function userValidation(data){
             .required(),
         phone:Joi
             .string()
-            .min(11)
-            .max(15),
+            .pattern(/([0-9]){8,14}/),
+
+            
         password:Joi    
             .string()
             .required()

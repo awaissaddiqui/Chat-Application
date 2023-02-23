@@ -7,11 +7,11 @@ const newSchema = new mongoose.Schema({
     },
     message:{
         type:String,
-        min:2,
-        max:200
+        minLength:2,
+        maxLength:200
     },
     phoneNo:{
-        type:String
+        type:Number
     }
 })
 module.exports=mongoose.model("Inbox",newSchema)

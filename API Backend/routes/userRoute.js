@@ -79,7 +79,7 @@ userRoute.post("/login",async(req,res)=>{
     if(!findUser) return res.status(400).send("You don't have an account!\n Please Login First"); 
 
     const compare = await bcryptjs.compare(password, findUser.password);
-    if(!compare) return res.status(400).send("Username or password are incorrect");
+    if(!compare) return res.status(400).send("email or password are incorrect");
 
     const token = jwt.sign({email:findUser.email}, process.env.SECRETKEY);
     res.status(200).header("token", token);
