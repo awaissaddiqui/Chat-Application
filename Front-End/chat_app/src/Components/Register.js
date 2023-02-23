@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 import "./style.css"
 const Register = () => {
   const [name, setName]=useState("");
@@ -9,6 +11,16 @@ const Register = () => {
 
   const signUp =(e)=>{
     e.preventDefault();
+    axios.post("http://localhost:3001/user/register",{
+      name:name,
+      email:email,
+      phone:phone,
+      password:password
+    }).then(res=>{
+      console.log(res);
+    }).catch(err=>{
+      console.log(err);
+    })
   }
   return (
     <div style={{"marginLeft":"280px", "textAlign":"center"}}>

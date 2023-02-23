@@ -1,12 +1,12 @@
 const userRoute = require("express").Router();
 const bcryptjs= require("bcryptjs");
 const User = require("../models/User");
-const userValidation = require("./validation");
-const loginValidation=require("./validation")
+const userValidation = require("../validation");
+//const loginValidation=require("./validation")
 const jwt = require("jsonwebtoken");
 const verifyToken = require("./verifyToken");
 const Inbox = require("../models/Message");
-const inboxValidation = require("./validation");
+//const inboxValidation = require("./validation");
 
 userRoute.get("/",verifyToken, (req, res)=>{
     
@@ -44,8 +44,8 @@ userRoute.post("/register", async(req, res)=>{
 })
 userRoute.post("/inbox",verifyToken, async(req, res)=>{
     const {name , message,phoneNo}=req.body;
-    const {error} = inboxValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message)
+    //const {error} = inboxValidation(req.body);
+    //if(error) return res.status(400).send(error.details[0].message)
     const newMsg= new Inbox({
         name,
         message,
@@ -72,8 +72,8 @@ userRoute.get("/login",verifyToken,(req,res)=>{
 })
 userRoute.post("/login",async(req,res)=>{
     const {email, password}=req.body;
-    const {error}=loginValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message)
+    // const {error}=loginValidation(req.body);
+    // if(error) return res.status(400).send(error.details[0].message)
 
     const findUser = await User.findOne({email:req.body.email})
     if(!findUser) return res.status(400).send("You don't have an account!\n Please Login First"); 

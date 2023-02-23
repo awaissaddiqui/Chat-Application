@@ -3,8 +3,7 @@ const mongoose = require("mongoose")
 const newSchema = new mongoose.Schema({
     name:{
         type:String,
-        required:true,
-        lastActive:Date
+        required:true
     },
     message:{
         type:String,
