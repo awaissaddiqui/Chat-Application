@@ -84,7 +84,7 @@ userRoute.post("/login",async(req,res)=>{
     const token = jwt.sign({email:findUser.email}, process.env.SECRETKEY);
     res.status(200).header("token", token);
 
-    res.status(200).send("Logged In successfully")
+    res.status(200).send(findUser)
     
 })
 module.exports = userRoute

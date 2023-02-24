@@ -10,8 +10,6 @@ const Joi = require("joi")
          password:Joi
              .string()
              .required()
-             .min(3)
-             .max(15)
      })
      const valided = schema.validate(login)
      return valided;

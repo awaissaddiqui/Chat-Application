@@ -6,12 +6,13 @@ import LogOut from './LogOut'
 import Register from './Register'
 import Error from './Error'
 import "./style.css"
+import  {NotificationContainer} from "react-notifications"
 
 const App = () => {
   return (
     <div>
         <Router>
-            
+            <NotificationContainer/>
         <div id="wrapper">
         <div id="sidebar-wrapper">
             <ul className="sidebar-nav">

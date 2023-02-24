@@ -4,7 +4,7 @@ function uValidation(data){
     const schema = Joi.object({
         name: Joi
             .string()
-            .min(3)
+            .min(2)
             .max(15)
             .required(),
         email:Joi
@@ -19,7 +19,7 @@ function uValidation(data){
         password:Joi    
             .string()
             .required()
-            .min(3)
+            .min(2)
             .max(15)
     })
     const valid = schema.validate(data)

@@ -1,25 +1,47 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { useNavigate } from 'react-router-dom'
 import "./style.css"
+import 'react-notifications/lib/notifications.css';
+import {NotificationManager} from "react-notifications"
 const Register = () => {
   const [name, setName]=useState("");
   const [email, setEmail]=useState("");
   const [phone, setPhone]=useState("");
   const [password,setPassword]=useState("");
-
+  const navigation = useNavigate();
   const signUp =(e)=>{
     e.preventDefault();
+  //Form  Validation
+  if(name.length<3){
+    NotificationManager.warning("Name must be at least 3 characters","",3000);
+    return;
+  }
+  else if(phone.length<11){
+    NotificationManager.warning("Phone number must be at least 11 digits","",3000);
+    return;
+  }
+  else if(password.length<3){
+    NotificationManager.warning("Password must be at least 3 characters","",3000);
+    return;
+  }
+  // Axios Call
     axios.post("http://localhost:3001/user/register",{
       name:name,
       email:email,
       phone:phone,
       password:password
     }).then(res=>{
-      console.log(res);
+      NotificationManager.success(`${res.data.name} is successfully register`)
+      navigation("./inbox")
+     // console.log(res);
     }).catch(err=>{
-      console.log(err.response.data);
+      if(!name || !email || !phone || !password){
+        NotificationManager.warning(err.response.data,"",3000)
+      }
+      NotificationManager.error(err.response.data,"",3000)
+       //console.log(err.response.data);
     })
   }
   return (

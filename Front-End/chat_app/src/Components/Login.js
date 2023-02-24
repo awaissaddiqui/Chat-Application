@@ -2,19 +2,37 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import "./style.css"
+import 'react-notifications/lib/notifications.css';
+import {NotificationManager} from "react-notifications"
+import { useNavigate } from 'react-router-dom';
 const Login = ()=>{
   const [email, setEmail]=useState("");
   const [password, setPassword]=useState("");
+  const navigation = useNavigate();
   const SignIn=(e)=>{
     e.preventDefault();
+    //console.log(e);
+    //Form Validation
+    
+    if(password.length<3){
+      NotificationManager.warning("Password must be at least 3 characters","",3000);
+      return;
+    }
     // axios call
     axios.post("http://localhost:3001/user/login",{
       email:email,
       password:password
     }).then(res=>{
-
+      localStorage.setItem("token", res.headers.token);
+      NotificationManager.success(`${res.data.name} is successfully Logged in`,"",4000);
+      console.log(res);
+      navigation("./inbox")
       console.log(res.data)
     }).catch(err=>{
+      if(!email|| !password){
+        NotificationManager.warning(err.response.data,"",3000)
+      }
+      NotificationManager.error(err.response.data,"",3000)
       console.log(err.response.data);
     })
   }
