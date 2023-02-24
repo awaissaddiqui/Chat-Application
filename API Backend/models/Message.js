@@ -7,7 +7,7 @@ const newSchema = new mongoose.Schema({
     },
     message:{
         type:String,
-        minLength:2,
+        minLength:1,
         maxLength:200
     },
     phoneNo:{
