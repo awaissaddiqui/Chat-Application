@@ -34,7 +34,7 @@ const Register = () => {
       password:password
     }).then(res=>{
       NotificationManager.success(`${res.data.name} is successfully register`)
-      navigation("./inbox")
+      navigation("/inbox")
      // console.log(res);
     }).catch(err=>{
       if(!name || !email || !phone || !password){

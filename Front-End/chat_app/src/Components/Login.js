@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = ()=>{
   const [email, setEmail]=useState("");
   const [password, setPassword]=useState("");
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const SignIn=(e)=>{
     e.preventDefault();
     //console.log(e);
@@ -26,9 +26,10 @@ const Login = ()=>{
       localStorage.setItem("token", res.headers.token);
       NotificationManager.success(`${res.data.name} is successfully Logged in`,"",4000);
       console.log(res);
-      navigation("./inbox")
+      navigate("/inbox")
       console.log(res.data)
     }).catch(err=>{
+     
       if(!email|| !password){
         NotificationManager.warning(err.response.data,"",3000)
       }
