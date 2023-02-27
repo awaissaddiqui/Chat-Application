@@ -108,3 +108,13 @@ body {
     margin-top: 100px;
     
 }
+#name1{
+    width: 600px;
+}
+#message{
+    width: 600px;
+    height: 55px;
+    padding-bottom: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

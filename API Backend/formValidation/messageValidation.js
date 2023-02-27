@@ -9,10 +9,7 @@ function inboxValidation(inboxData){
             .required()
             .min(1)
             .max(200),
-        phone: Joi
-            .string()
-            .pattern(/([0-9]){8,14}/)
-            .required()
+      
     })
     const inboxValid = schema.validate(inboxData)
     return inboxValid

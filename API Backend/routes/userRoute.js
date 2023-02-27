@@ -43,13 +43,12 @@ userRoute.post("/register", async(req, res)=>{
     
 })
 userRoute.post("/inbox",verifyToken, async(req, res)=>{
-    const {name , message,phone}=req.body;
+    const {name , message}=req.body;
     const {error} = inboxValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message)
     const newMsg= new Inbox({
         name,
         message,
-        phone
     })
     try{
 

@@ -9,9 +9,6 @@ const newSchema = new mongoose.Schema({
         type:String,
         minLength:1,
         maxLength:200
-    },
-    phoneNo:{
-        type:Number
     }
 })
 module.exports=mongoose.model("Inbox",newSchema)

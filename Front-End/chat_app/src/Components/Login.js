@@ -25,9 +25,9 @@ const Login = ()=>{
     }).then(res=>{
       localStorage.setItem("token", res.headers.token);
       NotificationManager.success(`${res.data.name} is successfully Logged in`,"",4000);
-      console.log(res);
+     // console.log(res);
       navigate("/inbox")
-      console.log(res.data)
+     // console.log(res.data)
     }).catch(err=>{
      
       if(!email|| !password){
