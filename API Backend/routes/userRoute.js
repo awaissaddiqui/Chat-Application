@@ -46,6 +46,7 @@ userRoute.post("/inbox",verifyToken, async(req, res)=>{
     const {name , message}=req.body;
     const {error} = inboxValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message)
+    console.log(req)    
     const newMsg= new Inbox({
         name,
         message,
