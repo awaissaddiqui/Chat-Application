@@ -20,10 +20,23 @@ const Inbox = () => {
   const sendMessage=(e)=>{
     e.preventDefault();
     if(!name || !message){
-      NotificationManager.error("Please filled all fild","",3000)
+      NotificationManager.error("Please filled all fields","",3000)
       return;
     }
     const token = localStorage.getItem("token")
+    // axios call
+    
+  //  const data =async()=>{
+  //   await axios.get("http://localhost:3001/user/person",{
+  //        name
+  //      }).then(res=>{
+  //        console.log(res.data);
+
+  //      }).catch(err=>{
+  //       console.log(err);
+  //      })
+  //  }
+
     axios.post("http://localhost:3001/user/inbox",{
       name,
       message
@@ -32,7 +45,7 @@ const Inbox = () => {
         token:token
       }
     }).then(res=>{
-      console.log(res);
+     // console.log(res);
     }).catch(err=>{
       console.log(err);
     })

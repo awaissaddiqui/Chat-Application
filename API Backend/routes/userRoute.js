@@ -8,7 +8,12 @@ const verifyToken = require("./verifyToken");
 const Inbox = require("../models/Message");
 const inboxValidation = require("../formValidation/messageValidation");
 
-userRoute.get("/",verifyToken, (req, res)=>{
+userRoute.get("/person", async(req, res)=>{
+    const name = req.body;
+    if(!name) return res.status(400).send("Please enter your name")
+    console.log(name);
+    const findPerson = await User.findOne({name:req.body.name})
+    res.send(findPerson)
     
 })
 userRoute.post("/register", async(req, res)=>{
@@ -44,9 +49,10 @@ userRoute.post("/register", async(req, res)=>{
 })
 userRoute.post("/inbox",verifyToken, async(req, res)=>{
     const {name , message}=req.body;
+   // console.log(name);
     const {error} = inboxValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message)
-    console.log(req)    
+   // console.log(req)    
     const newMsg= new Inbox({
         name,
         message,
