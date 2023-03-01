@@ -9,18 +9,20 @@ const Inbox = () => {
   const [name, setName]=useState("");
   const [message, setMessage]=useState("");
   const [response, setResponse]=useState("");
+  const [response2, setResponse2]=useState("");
+  const [test, setTest]=useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const data = location.state;
-  console.log(data);
+  
   useEffect(()=>{
     const token = localStorage.getItem("token")
     if(!token){
       NotificationManager.error("You should Login First","",3000)
       navigate("/login")
     }
-
-  })
+    const test = location.state;
+    setTest(test.res.phone);
+  },[location.state,navigate,test])
   
   const sendMessage=(e)=>{
     e.preventDefault();
@@ -38,11 +40,13 @@ const Inbox = () => {
       }
     }).then(res=>{
       setResponse(res.data.message);
+      setResponse2(res.data.name);
       setMessage("");
       setName("");
       console.log(res);
     }).catch(err=>{
       console.log(err);
+      NotificationManager.error("Something went wrong"+err,"",3000)
     })
         
 }
@@ -55,14 +59,16 @@ const Inbox = () => {
     <input type="text" id="message" placeholder='Your message here' onChange={(e)=>setMessage(e.target.value)} value={message}/><br></br>
     <button type="submit" className="btn btn-success">Send </button>
         </form>
-      </div>
+      </div><br></br>
       {/*Recevied Message*/}
       <div>
-        <h1 className="display-4">Received Message</h1>
-        {response&&<p>{response}</p>}
-       {/* {response&&<p>{response}</p>}*/}
+        <h1 className="display-5">Received Message</h1>
         
-
+        <div id='msgUser'>
+        {response2&&<h3 className='text-warning'>{response2}</h3>}
+        {test&&<p className='text-white'>{test}</p>}
+        {response&&<h5 className="text-info bg-dark">{response}</h5>}
+        </div>
           </div>
       </div>
   )

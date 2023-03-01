@@ -35,7 +35,7 @@ const Login = ()=>{
         NotificationManager.warning(err.response.data,"",3000)
       }
       NotificationManager.error(err.response.data,"",3000)
-      console.log(err.response.data);
+      //console.log(err.response.data);
     })
   }
   return (
