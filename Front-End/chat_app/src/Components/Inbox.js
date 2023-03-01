@@ -3,18 +3,23 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "./style.css"
 const Inbox = () => {
   const [name, setName]=useState("");
   const [message, setMessage]=useState("");
+  const [response, setResponse]=useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  console.log(data);
   useEffect(()=>{
     const token = localStorage.getItem("token")
     if(!token){
       NotificationManager.error("You should Login First","",3000)
       navigate("/login")
     }
+
   })
   
   const sendMessage=(e)=>{
@@ -24,19 +29,6 @@ const Inbox = () => {
       return;
     }
     const token = localStorage.getItem("token")
-    // axios call
-    
-  //  const data =async()=>{
-  //   await axios.get("http://localhost:3001/user/person",{
-  //        name
-  //      }).then(res=>{
-  //        console.log(res.data);
-
-  //      }).catch(err=>{
-  //       console.log(err);
-  //      })
-  //  }
-
     axios.post("http://localhost:3001/user/inbox",{
       name,
       message
@@ -45,12 +37,14 @@ const Inbox = () => {
         token:token
       }
     }).then(res=>{
-     // console.log(res);
+      setResponse(res.data.message);
+      setMessage("");
+      setName("");
+      console.log(res);
     }).catch(err=>{
       console.log(err);
     })
-    
-    
+        
 }
   return (
     <div  style={{"marginLeft":"300px","paddingTop":"100px"}}>
@@ -62,6 +56,14 @@ const Inbox = () => {
     <button type="submit" className="btn btn-success">Send </button>
         </form>
       </div>
+      {/*Recevied Message*/}
+      <div>
+        <h1 className="display-4">Received Message</h1>
+        {response&&<p>{response}</p>}
+       {/* {response&&<p>{response}</p>}*/}
+        
+
+          </div>
       </div>
   )
 }
