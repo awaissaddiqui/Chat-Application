@@ -6,13 +6,13 @@
 <p>To install the application, follow these steps:</p>
 
 <p>1). Clone the repository to your local machine </p>
-<small>git clone https://github.com/your-username/newchatbot.git</small>
+<small>git clone https://github.com/your-username/newchatbot.git</small><br></br>
 <p>2). Navigate to the project directory:</p>
-<small>cd newchatbot</small>
+<small>cd newchatbot</small><br></br>
 <p>3). Install the dependencies:</p>
-<small>npm install</small>
+<small>npm install</small><br></br>
 <p>4). Start the application:</p>
-<small>npm start</small>
+<small>npm start</small><br></br>
 <p>5). View in browser at http://localhost:3000</p>
 <h3>Usage</h3>
 <p>After installing the application, you can run it locally or deploy it to Heroku.</p>
