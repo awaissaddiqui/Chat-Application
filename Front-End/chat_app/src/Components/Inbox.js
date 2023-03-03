@@ -33,10 +33,11 @@ const Inbox = () => {
     const token = localStorage.getItem("token")
     const test = localStorage.getItem("test")
     const data = JSON.parse(test);
-    // console.log(data.name);
-    // console.log(data.phone);
-    setTest(data.phone);
-    axios.post("http://localhost:3001/user/inbox",{
+    setInterval(() => {
+      
+      setTest(data.phone);
+    }, 2000);
+    axios.post("https://newchatbot.herokuapp.com/user/inbox",{
       name,
       message
     },{

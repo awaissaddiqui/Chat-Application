@@ -23,7 +23,7 @@ const Login = ()=>{
      // To check whether the user is already logged in or not
 
     // axios call
-    axios.post("http://localhost:3001/user/login",{
+    axios.post("https://newchatbot.herokuapp.com/user/login",{
       email:email,
       password:password
     }).then(res=>{

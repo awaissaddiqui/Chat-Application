@@ -27,7 +27,7 @@ const Register = () => {
     return;
   }
   // Axios Call
-    axios.post("http://localhost:3001/user/register",{
+    axios.post("https://newchatbot.herokuapp.com/user/register",{
       name:name,
       email:email,
       phone:phone,
