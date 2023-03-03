@@ -12,6 +12,7 @@ const LogOut = () => {
     }
     else{
       localStorage.removeItem("token");
+      localStorage.removeItem("test");
       NotificationManager.warning("Logged Out Successfuly !","",3000);
       navigation("/")
     }

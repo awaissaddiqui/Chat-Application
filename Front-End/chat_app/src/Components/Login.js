@@ -12,22 +12,33 @@ const Login = ()=>{
   const SignIn=(e)=>{
     e.preventDefault();
     //console.log(e);
+   
     //Form Validation
     
+    const token = localStorage.getItem("token");
     if(password.length<3){
       NotificationManager.warning("Password must be at least 3 characters","",3000);
       return;
     }
+     // To check whether the user is already logged in or not
+
     // axios call
     axios.post("http://localhost:3001/user/login",{
       email:email,
       password:password
     }).then(res=>{
-      localStorage.setItem("token", res.headers.token);
+      const token2=localStorage.setItem("token", res.headers.token);
+      localStorage.setItem("test", JSON.stringify(res.data));
+      if(token2===token){
+        NotificationManager.warning("You are already logged in","",3000);
+        return; 
+      }
       NotificationManager.success(`${res.data.name} is successfully Logged in`,"",4000);
       //console.log(res);
-      //send res to Inbox page
-      navigate("/inbox", {state:{res:res.data}})
+      // Res to send to inbox
+      navigate("/inbox")
+      //navigate({state:{res:res.data}})
+
      // console.log(res.data)
     }).catch(err=>{
      
@@ -37,7 +48,8 @@ const Login = ()=>{
       NotificationManager.error(err.response.data,"",3000)
       //console.log(err.response.data);
     })
-  }
+  
+    }
   return (
     <div style={{"marginLeft":"280px", "textAlign":"center"}}>
 <form className="htmlForm-horizontal" onSubmit={(e=>SignIn(e))} >

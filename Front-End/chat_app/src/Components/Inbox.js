@@ -3,16 +3,18 @@ import React from 'react'
 import { useState,useEffect } from 'react'
 import { NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
+//import { useLocation } from 'react-router-dom';
 import "./style.css"
 const Inbox = () => {
   const [name, setName]=useState("");
   const [message, setMessage]=useState("");
   const [response, setResponse]=useState("");
   const [response2, setResponse2]=useState("");
+
   const [test, setTest]=useState("");
   const navigate = useNavigate();
-  const location = useLocation();
+  //const location = useLocation();
   
   useEffect(()=>{
     const token = localStorage.getItem("token")
@@ -20,9 +22,7 @@ const Inbox = () => {
       NotificationManager.error("You should Login First","",3000)
       navigate("/login")
     }
-    const test = location.state;
-    setTest(test.res.phone);
-  },[location.state,navigate,test])
+  },[navigate])
   
   const sendMessage=(e)=>{
     e.preventDefault();
@@ -31,6 +31,11 @@ const Inbox = () => {
       return;
     }
     const token = localStorage.getItem("token")
+    const test = localStorage.getItem("test")
+    const data = JSON.parse(test);
+    // console.log(data.name);
+    // console.log(data.phone);
+    setTest(data.phone);
     axios.post("http://localhost:3001/user/inbox",{
       name,
       message
@@ -43,11 +48,13 @@ const Inbox = () => {
       setResponse2(res.data.name);
       setMessage("");
       setName("");
-      console.log(res);
+     // console.log(res);
     }).catch(err=>{
-      console.log(err);
+     // console.log(err);
       NotificationManager.error("Something went wrong"+err,"",3000)
     })
+     
+
         
 }
   return (
