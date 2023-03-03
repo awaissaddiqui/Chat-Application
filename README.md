@@ -1,5 +1,3 @@
-# Chat-Application
-<h1>Chat Application</h1>
 <h1>Chat Application</h1>
 <p>This is a chat application built using the MERN (MongoDB, Express, React, Node.js) stack. It allows users send messages to each other</p>
 <p>The app is deployed on GitHub pages and can be accessed at</p>
